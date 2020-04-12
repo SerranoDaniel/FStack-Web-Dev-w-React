@@ -1,1 +1,1 @@
-"# FStack-Web-Dev-w-React" 
+Coursera's and The Hong Kong Universitie of Science and Technology "Full-Stack Web Development with React" specialization.
