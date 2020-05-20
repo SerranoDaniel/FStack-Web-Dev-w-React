@@ -28,9 +28,7 @@ class CommentForm extends Component {
 
     handleSubmit(values) {
         this.toggleModal();
-        console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
-        // event.preventDefault();
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
     render() {
@@ -79,7 +77,7 @@ class CommentForm extends Component {
                                             minLength: 'Must be greater than 2 characters',
                                             maxLength: 'Must be 15 characters or less'
                                         }}
-                                     />
+                                    />
                                 </Col>
                             </Row>
                             <Row className="form-group">
@@ -114,7 +112,7 @@ function RenderDish({ dish }) {
     );
 }
 
-function RenderComments({ comments }) {
+function RenderComments({ comments, addComment, dishId }) {
     const cmnts = comments.map(comment => {
         return (
             <li key={comment.id}>
@@ -136,13 +134,12 @@ function RenderComments({ comments }) {
                 <h4> Comments </h4>
                 <ul className='list-unstyled'>
                     {cmnts}
-                    <CommentForm />
                 </ul>
-
+                <CommentForm dishId={dishId} addComment={addComment} />
             </div>
-        )
+        );
     } else {
-        return (<div></div>)
+        return (<div></div>);
     }
 }
 
@@ -163,7 +160,9 @@ const DishDetail = (props) => {
                 </div>
                 <div className="row">
                     <RenderDish dish={props.dish} />
-                    <RenderComments comments={props.comments} />
+                    <RenderComments comments={props.comments}
+                        addComment={props.addComment}
+                        dishId={props.dish.id} />
                 </div>
             </div>
         );
